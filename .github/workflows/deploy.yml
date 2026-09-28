@@ -30,13 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Paso para crear el archivo .env antes de la compilación
+      # Inyecta la URL base con el nombre exacto de tu repositorio
       - name: Create .env file
         run: |
           echo "NUXT_APP_BASE_URL=/PokeCollectorApp/" >> .env
 
+      # Genera los archivos HTML estáticos en .output/public
       - name: Generate static site
-        run: npm run generate
+        run: npx nuxi generate
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
