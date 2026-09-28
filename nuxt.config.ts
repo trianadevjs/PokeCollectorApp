@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         }
       ]
     },
-    baseURL: '/tu-repositorio/' // Reemplaza 'tu-repositorio' por el nombre exacto de tu repo en GitHub
+    baseURL: process.env.BASE_URL || '/' // Reemplaza 'tu-repositorio' por el nombre exacto de tu repo en GitHub
   },
   nitro: {
     preset: 'github-pages'
