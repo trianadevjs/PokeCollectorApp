@@ -25,7 +25,7 @@ const toggleSidebar = () => {
         <!-- Brand / Logotipo -->
         <a class="navbar-brand d-flex align-items-center gap-2 fw-bold me-auto me-lg-4 text-white" href="#">
           <i class="bi bi-collection-fill text-warning fs-4"></i>
-          <span>Poke<span class="text-warning">Vault</span> TCG</span>
+          <span>Poke<span class="text-warning">Collector</span> TCG</span>
         </a>
 
         <!-- Buscador en el Navbar (Escritorio) -->
@@ -40,17 +40,6 @@ const toggleSidebar = () => {
               placeholder="Buscar Pokémon, expansión, rareza..."
             >
           </div>
-        </div>
-
-        <!-- Acciones Rápidas -->
-        <div class="d-flex align-items-center gap-2">
-          <button class="btn btn-warning text-dark fw-bold d-flex align-items-center gap-2">
-            <i class="bi bi-plus-circle-fill"></i>
-            <span class="d-none d-sm-inline">Nueva Carta</span>
-          </button>
-          <button class="btn btn-dark-custom position-relative" title="Estadísticas">
-            <i class="bi bi-pie-chart-fill text-white"></i>
-          </button>
         </div>
       </div>
     </nav>
