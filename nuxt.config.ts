@@ -16,6 +16,11 @@ export default defineNuxtConfig({
           href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css' 
         }
       ]
-    }
+    },
+    baseURL: '/tu-repositorio/' // Reemplaza 'tu-repositorio' por el nombre exacto de tu repo en GitHub
+  },
+  nitro: {
+    preset: 'github-pages'
   }
+
 })
