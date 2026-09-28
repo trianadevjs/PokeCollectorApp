@@ -26,12 +26,12 @@ interface Folder {
 const isLoading = ref(false)
 
 // Carpetas de la colección
-const folders = ref<Folder[]>([
-  { id: 'all', name: 'Todas las Cartas', icon: 'bi-grid-fill', colorClass: 'text-warning' },
-  { id: 'raras', name: 'Más Raras (SIR)', icon: 'bi-star-fill', colorClass: 'text-warning' },
-  { id: 'exp151', name: 'Expansión 151', icon: 'bi-folder2-open', colorClass: 'text-info' },
-  { id: 'charizard', name: 'Colección Charizard', icon: 'bi-fire', colorClass: 'text-danger' }
-])
+    const folders = ref([
+    { id: 'all', name: 'Todas las Cartas', icon: 'bi-grid-fill', colorClass: 'text-warning' },
+    { id: 'raras', name: 'Más Raras (SIR)', icon: 'bi-star-fill', colorClass: 'text-warning' },
+    { id: 'exp151', name: 'Expansión 151', icon: 'bi-folder2-open', colorClass: 'text-info' },
+    { id: 'charizard', name: 'Colección Charizard', icon: 'bi-fire', colorClass: 'text-danger' }
+    ])
 
 // Lista de cartas (Simulación de respuesta de API)
 const cards = ref<PokemonCard[]>([
@@ -103,6 +103,11 @@ const totalValue = computed(() => {
   return filteredCards.value.reduce((acc, card) => acc + card.price, 0).toFixed(2)
 })
 
+    // Acción al presionar "Nueva Carpeta"
+    const handleCreateFolder = () => {
+      console.log('Abrir modal de creación de carpeta')
+    }
+
 // Efecto 3D / Holo en Hover
 const handleMouseMove = (e: MouseEvent, cardId: string) => {
   const cardElement = e.currentTarget as HTMLElement
@@ -128,40 +133,17 @@ const handleMouseLeave = (e: MouseEvent) => {
   <main class="container-fluid px-3 px-lg-4 py-4 min-vh-100 bg-slate-900 text-white">
     <div class="row g-4">
       
-      <!-- SIDEBAR EN ESCRITORIO (LISTA DE CARPETAS) -->
-      <aside class="col-lg-3 d-none d-lg-block">
-        <div class="card bg-slate-800 border-slate-700 p-3 rounded-3 sticky-top top-80">
-          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-slate-700">
-            <h5 class="m-0 fw-bold text-warning d-flex align-items-center gap-2">
-              <i class="bi bi-folder-fill"></i> Carpetas
-            </h5>
-            <span class="badge bg-slate-700 text-slate-300">{{ folders.length }}</span>
-          </div>
-
-          <div class="nav nav-pills flex-column gap-1">
-            <button
-              v-for="folder in folders"
-              :key="folder.id"
-              class="nav-link text-start d-flex align-items-center justify-content-between py-2.5 px-3 rounded-2 transition-all"
-              :class="{ 'active': selectedFolder === folder.id, 'text-slate-300': selectedFolder !== folder.id }"
-              @click="selectedFolder = folder.id"
-            >
-              <span class="d-flex align-items-center gap-2">
-                <i :class="['bi', folder.icon, folder.colorClass]"></i>
-                {{ folder.name }}
-              </span>
-              <span class="badge bg-slate-900 border border-slate-700 text-slate-400">
-                {{ folder.id === 'all' ? cards.length : cards.filter(c => c.folderId === folder.id).length }}
-              </span>
-            </button>
-          </div>
-
-          <button class="btn btn-outline-warning btn-sm mt-4 w-100 d-flex align-items-center justify-content-center gap-2">
-            <i class="bi bi-folder-plus"></i>
-            <span>Nueva Carpeta</span>
-          </button>
-        </div>
-      </aside>
+      <!-- SIDEBAR DE ESCRITORIO -->
+            <aside class="col-lg-3 d-none d-lg-block">
+            <div class="sticky-top top-80">
+                <LayoutFolderList 
+                v-model="selectedFolder"
+                :folders="folders"
+                :cards="cards"
+                @create-folder="handleCreateFolder"
+                />
+            </div>
+            </aside>
 
       <!-- ÁREA PRINCIPAL: BARRA DE FILTROS Y GRID DE CARTAS -->
       <section class="col-12 col-lg-9">
@@ -173,7 +155,7 @@ const handleMouseLeave = (e: MouseEvent) => {
             <!-- Contador de Cartas y Valor -->
             <div class="col-12 col-md-5">
               <h4 class="fw-bold mb-1 d-flex align-items-center gap-2">
-                Colección
+                <span class="text-white">Colección</span>
                 <span class="badge bg-warning text-dark fs-6">{{ filteredCards.length }} cartas</span>
               </h4>
               <p class="text-slate-400 small m-0">
