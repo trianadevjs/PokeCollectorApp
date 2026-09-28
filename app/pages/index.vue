@@ -1,4 +1,15 @@
 <script setup lang="ts">
+
+const title = ref('PokeCollector')
+const description = ref('Pokemon TCG Collector Application')
+useHead({
+  title,
+  meta: [{
+    name: 'description',
+    content: description,
+  }],
+})
+
 import { ref, computed } from 'vue'
 
 // Definición de tipos
